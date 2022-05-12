@@ -1,0 +1,29 @@
+# source: https://github.com/monetree/redis-flask-mysql
+version: '3'
+services:
+  web:
+    build: ./redis-flask-mysql
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+      - mysql
+
+  redis:
+    image: 'redis:alpine'
+    ports:
+      6379:6379
+
+  mysql:
+    image: 'mysql'
+    networks:
+     -backend
+    restart: always
+    ports:
+     -3306:3306
+    secrets:
+      -sql_password
+  
+  secrets:
+    sql_password:
+      file: ./sql_password.txt
