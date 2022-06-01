@@ -1,29 +1,29 @@
-# source: https://github.com/monetree/redis-flask-mysql
+# source: https://avishwakarma.medium.com/getting-started-with-docker-for-nodejs-mongodb-and-redis-b97188d33559
+# https://stavshamir.github.io/python/dockerizing-a-flask-mysql-app-with-docker-compose/
+ 
 version: '3'
 services:
   web:
-    build: ./redis-flask-mysql
+    build: ./sequelize-redis-caching
     ports:
-      - "5000:5000"
+      - "3000:3000"
+    volumes:
+      - ./app:/app
     depends_on:
-      - redis
       - mysql
+      - redis
 
   redis:
     image: 'redis:alpine'
     ports:
-      6379:6379
+      - "6379:6379"
 
   mysql:
     image: 'mysql'
-    networks:
-     -backend
-    restart: always
+    environment:
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=sudouser
+      - MYSQL_ROOT_PASSWORD=sudouser
     ports:
-     -3306:3306
-    secrets:
-      -sql_password
-  
-  secrets:
-    sql_password:
-      file: ./sql_password.txt
+      - "3306:3306"
