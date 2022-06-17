@@ -4,7 +4,7 @@
 version: '3'
 services:
   web:
-    build: ./sequelize-redis-caching
+    build: ./new-nodejs-project/sequelize-redis-caching
     ports:
       - "3000:3000"
     volumes:
