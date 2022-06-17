@@ -6,3 +6,8 @@
 sudo docker-compose build --no-cache
 sudo docker-compose up
 ```
+
+## Uninstall
+```docker
+docker-compose down
+```
